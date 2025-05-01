@@ -7,3 +7,4 @@ junk.js
 pull-server.sh
 sync.sh
 db.sqlite
+.editorconfig
