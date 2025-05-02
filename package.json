@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +13,11 @@
   "devDependencies": {
     "eslint": "^9.25.1",
     "eslint-config-airbnb-base": "15.0.0",
-    "eslint-plugin-import": "2.31.0"
+    "eslint-plugin-import": "2.31.0",
+    "nodemon": "^3.1.10",
+    "sucrase": "^3.35.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }
