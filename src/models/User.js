@@ -1,4 +1,5 @@
 import  Sequelize, { Model }  from "sequelize";
+import bcrypt from "bcryptjs";
 
 export default class User extends Model {
     static init(sequelize) {
@@ -17,9 +18,8 @@ export default class User extends Model {
                type: Sequelize.STRING,
                defaultValue: '',
                validate: {
-                len: {
-                    args:[],
-                    msg: '',
+                isEmail: {
+                    msg: 'Email invalido',
                 },
 
                },
@@ -27,20 +27,14 @@ export default class User extends Model {
             password_hash: {
                 type: Sequelize.STRING,
                 defaultValue: '',
-                validate: {
-                    len: {
-                        args:[],
-                        msg: '',
-                    },
-                },
             },
             password: {
                type: Sequelize.VIRTUAL,
                defaultValue: '',
                validate: {
                 len: {
-                    args: [],
-                    msg: '',
+                    args: [6, 50],
+                    msg: 'A senha tem que ter mais que 6 caracter',
                 },
                },
 
@@ -48,6 +42,9 @@ export default class User extends Model {
         },{
             sequelize,
         });
+        this.addHook('beforeSave', async (user) => {
+            user.password_hash = await bcryptjs.hash(user.password, 8);
+        })
         return this;
     }
 }
