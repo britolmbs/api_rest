@@ -50,8 +50,37 @@ class UserController {
             const atualizar = await user.update(req.body);
             return res.json(atualizar);
         }catch(e){
-            return res.json(null);
+            return res.status(400).json({
+                errors: e.errors.map((err) => err.message),
+            });
         }
+
+    }
+    async delete (req, res){
+        try{
+            const { id } = req.params;
+            if(!id) {
+                return res.status(400).json({
+                    errors: ['ID não existe'],
+                });
+            }
+            const user = await User.findByPk(id);
+
+            if(!user) {
+                return res.status(400).json({
+                    errors: ['Usuario não existe'],
+                });
+            }
+
+                await user.destroy();
+                return res.json('Usuario Apagado')
+        }catch(e){
+            return res.status(400).json({
+                errors: e.errors.map((err) => err.message),
+            });
+
+        }
+
     }
 
 
