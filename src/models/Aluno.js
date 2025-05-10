@@ -1,7 +1,7 @@
-import Sequelize, { Model } from 'sequelize';
+import  Sequelize, { Model }  from "sequelize";
 
 export default class Aluno extends Model {
-    static init(Sequelize) {
+    static init(sequelize) {
         super.init({
             nome: Sequelize.STRING,
             sobrenome: Sequelize.STRING,
@@ -11,7 +11,7 @@ export default class Aluno extends Model {
             altura: Sequelize.FLOAT,
 
         }, {
-            Sequelize,
+            sequelize,
         });
         return this;
     }
