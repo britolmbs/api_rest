@@ -12,7 +12,7 @@ class UserController {
     }
     }
 
-    async indexedDB(req, res) {
+    async index(req, res) {
         try{
             const users = await User.findAll();
            return res.json(users)
@@ -20,6 +20,41 @@ class UserController {
             return res.json(null);
         }
     }
+
+    async show(req, res) {
+        try{
+            const {id} = req.params;
+            const user = await User.findByPk(id);
+            return res.json(user);
+
+        }catch(e) {
+            return res.json(null);
+        }
+    }
+
+    async update (req, res) {
+        try{
+            const { id } = req.params;
+            if(!id) {
+                return res.status(400).json({
+                    errors: ['ID não enviado'],
+                });
+            }
+            const user = await User.findByPk(id);
+
+            if(!user) {
+                return res.status(400).json({
+                    errors:['Usuario não existe'],
+                });
+            }
+            const atualizar = await user.update(req.body);
+            return res.json(atualizar);
+        }catch(e){
+            return res.json(null);
+        }
+    }
+
+
 }
 
 export default new UserController();
