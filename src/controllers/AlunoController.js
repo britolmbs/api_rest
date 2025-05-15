@@ -7,7 +7,29 @@ class AlunoController {
     }
     async store(req, res){}
 
-    async update(req, res){}
+    async update(req, res){
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                return res.status(400).json({
+                    errors: ['Id não encontrado'],
+                });
+            }
+            const aluno = await Aluno.findByPk(id);
+
+            if (!aluno) {
+                return res.status(400).json({
+                    errors: ['Aluno não existe'],
+                });
+            }
+
+        }catch(e) {
+            return res.status(400).json({
+                errors: e.errors.map((err) => err.message),
+            });
+        }
+    }
 
     async show(req, res){
       try { 
@@ -32,7 +54,32 @@ class AlunoController {
 
      }
     }
-    async delete(req, res){}
+    async delete(req, res){
+        try{
+            const {id} = req.params;
+
+            if(!id) {
+                return res.status(404).json({
+                    errors: ['Id Invalido'],
+                });
+            }
+            
+            const aluno = await Aluno.findByPk(id);
+
+            if (!aluno) {
+                return res.status(404).json({
+                    errors: ['Aluno Não encontrado'],
+                });
+            }
+            await aluno.destroy();
+            return res.json('Aluno Excluido com Sucesso!');
+
+        }catch(e){
+            return res.status(400).json({
+                errors: e.errors.map((err) => err.message),
+            });
+        }
+    }
 }
 
 export default new AlunoController();
