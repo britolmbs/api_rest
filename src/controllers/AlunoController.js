@@ -7,7 +7,7 @@ class AlunoController {
     }
     async store(req, res){
         try{
-            const aluno = Aluno.create(req.body);
+            const aluno = await Aluno.create(req.body);
             return res.json(aluno);
         }catch(e){
             return res.status(400).json({
@@ -32,7 +32,7 @@ class AlunoController {
                     errors: ['Aluno não existe'],
                 });
             }
-            const alunoAtulizado = aluno.update(req.body)
+            const alunoAtulizado = await aluno.update(req.body)
             return res.json(alunoAtulizado);
 
         }catch(e) {
