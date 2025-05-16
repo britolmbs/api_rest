@@ -5,7 +5,16 @@ class AlunoController {
         const alunos = await Aluno.findAll();
         res.json(alunos)
     }
-    async store(req, res){}
+    async store(req, res){
+        try{
+            const aluno = Aluno.create(req.body);
+            return res.json(aluno);
+        }catch(e){
+            return res.status(400).json({
+                errors: e.errors.map((err) => err.message),
+            });
+        }
+    }
 
     async update(req, res){
         try {
@@ -23,6 +32,8 @@ class AlunoController {
                     errors: ['Aluno não existe'],
                 });
             }
+            const alunoAtulizado = aluno.update(req.body)
+            return res.json(alunoAtulizado);
 
         }catch(e) {
             return res.status(400).json({
