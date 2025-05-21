@@ -8,3 +8,5 @@ pull-server.sh
 sync.sh
 db.sqlite
 .editorconfig
+uploads
+
