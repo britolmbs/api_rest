@@ -1,4 +1,4 @@
-# API REST • Simulação de Escola
+# API REST • Simulação de Escola.
 
 Esta é uma API REST desenvolvida para simular a gestão de uma escola, permitindo gerenciar usuários e alunos, além de suportar upload de imagens e autenticação via **Bearer Token**.
 
